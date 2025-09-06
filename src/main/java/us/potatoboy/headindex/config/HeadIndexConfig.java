@@ -21,7 +21,8 @@ public class HeadIndexConfig {
 		TAG,
 		ITEM,
 		ECONOMY,
-		FREE
+		FREE,
+        HEAD
 	}
 
 	public int permissionLevel = 2;
@@ -33,10 +34,10 @@ public class HeadIndexConfig {
 	public Text getCost(MinecraftServer server) {
 		return switch (economyType) {
 			case TAG -> Text.translatable(getCostTag().getTranslationKey()).append(Text.of(" × " + costAmount));
-			case ITEM -> Text.empty().append(getCostItem().getName()).append(Text.of(" × " + costAmount));
+			case ITEM, HEAD -> Text.empty().append(getCostItem().getName()).append(Text.of(" × " + costAmount));
 			case ECONOMY -> getCostCurrency(server).formatValueText(costAmount, false);
 			case FREE -> Text.empty();
-		};
+        };
 	}
 
 	public Item getCostItem() {

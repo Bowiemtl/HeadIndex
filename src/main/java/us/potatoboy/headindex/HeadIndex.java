@@ -85,6 +85,19 @@ public class HeadIndex implements ModInitializer {
                     }
                 }
             }
+            case HEAD -> {
+                try (Transaction transaction = Transaction.openOuter()) {
+                    ItemStack offhandStack = player.getOffHandStack();
+                    if (!offhandStack.isEmpty() && offhandStack.getItem() == HeadIndex.config.getCostItem() && offhandStack.getCount() >= trueAmount) {
+                        ItemVariant variant = ItemVariant.of(player.getOffHandStack());
+                        long extracted = PlayerInventoryStorage.of(player).getSlot(40).extract(variant, trueAmount, transaction);
+                        if (extracted == trueAmount) {
+                            transaction.commit();
+                            onPurchase.run();
+                        }
+                    }
+                }
+            }
         }
     }
 }
