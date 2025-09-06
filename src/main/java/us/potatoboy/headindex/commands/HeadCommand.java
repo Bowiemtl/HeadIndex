@@ -22,6 +22,6 @@ public class HeadCommand {
 
         root.addChild(new MenuCommand().build());
         root.addChild(new SearchCommand().build());
-        root.addChild(new PlayerCommand().build());
+        //root.addChild(new PlayerCommand().build());
     }
 }
